@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -23,7 +24,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -45,7 +46,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::with(['comments'])->findOrFail( $id);
+        return view('posts.show', compact('post'));
     }
 
     /**
