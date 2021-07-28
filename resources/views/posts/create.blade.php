@@ -1,50 +1,40 @@
 @extends('layouts.app')
-
 @section('content')
-{{-- <link href="{{ asset('css/post-form.css')}}" rel="stylesheet"> --}}
-
-<div class="container contact">
-	<div class="row">
-		<div class="col-md-3">
-			<div class="contact-info">
-				<img src="https://image.ibb.co/kUASdV/contact-image.png" alt="image"/>
-				<h2>Contact Us</h2>
-				<h4>We would love to hear from you !</h4>
-			</div>
-		</div>
-		<div class="col-md-9">
-			<div class="contact-form">
-				<div class="form-group">
-				  <label class="control-label col-sm-2" for="fname">First Name:</label>
-				  <div class="col-sm-10">          
-					<input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="fname">
-				  </div>
-				</div>
-				<div class="form-group">
-				  <label class="control-label col-sm-2" for="lname">Last Name:</label>
-				  <div class="col-sm-10">          
-					<input type="text" class="form-control" id="lname" placeholder="Enter Last Name" name="lname">
-				  </div>
-				</div>
-				<div class="form-group">
-				  <label class="control-label col-sm-2" for="email">Email:</label>
-				  <div class="col-sm-10">
-					<input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-				  </div>
-				</div>
-				<div class="form-group">
-				  <label class="control-label col-sm-2" for="comment">Comment:</label>
-				  <div class="col-sm-10">
-					<textarea class="form-control" rows="5" id="comment"></textarea>
-				  </div>
-				</div>
-				<div class="form-group">        
-				  <div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" class="btn btn-default">Submit</button>
-				  </div>
-				</div>
-			</div>
-		</div>
-	</div>
+<section class="hero-wrap hero-wrap-2" style="background-image: url('images/pix_2.jpg');">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text align-items-end justify-content-center">
+      <div class="col-md-9 ftco-animate pb-5 text-center">
+       <p class="breadcrumbs"><span class="mr-2"><i>Write Like A </i><b>Ninja</b></span> </p>
+       <h1 class="mb-0 bread">Post your thoughts here</h1>
+     </div>
+   </div>
+ </div>
+</section>
+<section class="ftco-section bg-light">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <!-- <div class="card-header">{{ __('Login') }}</div> -->
+              <div class="card-body">
+                <form method="POST" action="{{ route('login') }}">
+                  @csrf
+                  <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" placeholder="Title for your post">
+                  </div>
+                  <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" rows="3"></textarea>
+                  </div>
+                  <button class="btn btn-primary">Post</btton>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+</section>
+
+
 @endsection

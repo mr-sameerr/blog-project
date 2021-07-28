@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['about', 'contact']);
     }
 
     /**
@@ -27,5 +27,13 @@ class HomeController extends Controller
         $posts = Post::all();
         dd($posts);
         return view('index', compact('posts'));
+    }
+
+    public function about(){
+        return view('about');
+    }
+
+    public function contact(){
+        return view('contact');
     }
 }
