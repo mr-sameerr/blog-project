@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    pubclif function __construct(){
+    public function __construct(){
         $this->middleware('auth');
         $this->authorizeResource(User::class, 'user')
     }

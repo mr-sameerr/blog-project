@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function __construct(){
+
+        $this->middleware('auth')->only(['create', 'store', 'edit', 'update', 'destroy']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::withCount('comments')->get();
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -35,7 +40,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -46,7 +51,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return view('posts.show');
+        $post = Post::with('comments')->findOrFail( $id);
+
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -57,7 +64,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail( $id);
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -80,6 +88,11 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+       $msg = Post::findOrFail( $id)->delete();
+
+       $flag = $state ? 'success' : 'fail';
+       $msg  = $flag == 'success' ? 'Post has been deleted.' : 'There is an error.';
+
+        return back()->with($flag, $msg);
     }
 }
