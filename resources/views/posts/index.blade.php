@@ -19,7 +19,7 @@
         </div>
     @endif
     @if(Session::has('fail'))
-        <div class="alert alert-danger">
+        <div class="alert alert-danger" style="margin: -84px 0 48px 0;">
             {{Session::get('fail')}}
         </div>
     @endif
@@ -88,22 +88,22 @@
         <div class="text d-block">
             <div class="meta">
                 <p>
-                   <a href="#"><span class="fa fa-calendar mr-2"></span> {{date('Y, m d', strtotime($post->created_at))}}</a>
-                   <a href="#"><span class="fa fa-user mr-2"></span>Admin</a>
-                   <a href="{{route('posts.show', $post->id)}}" class="meta-chat"><span class="fa fa-comment mr-2"></span> {{$post->comments_count}}</a>                    
+                  <a href="#"><span class="fa fa-calendar mr-2"></span> {{date('Y, m d', strtotime($post->created_at))}}</a>
+                  <a href="#"><span class="fa fa-user mr-2"></span>{{$post['user']->name}}</a>
+                  <a href="{{route('posts.show', $post->id)}}" class="meta-chat"><span class="fa fa-comment mr-2"></span> {{$post->comments_count}}</a>                    
                 </p>
                 <p>
                    <a href="{{route('posts.edit', $post->id)}}" class="meta-chat"><span class="fa fa-edit mr-2"></span></a> 
                 </p>
+                @can('delete', $post)
                 <p>
-                    <a class="meta-chat" href="{{ route('posts.destroy', $post->id) }}" onclick="event.preventDefault(); 
-                    document.getElementById('delete-form').submit();">
-                    <i class="fa fa-trash"></i></a>
-                    <form id="delete-form" action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display: none;">
-                        @csrf
-                        @method('DELETE')
-                    </form>
+                  <form id="delete-form" action="{{ route('posts.destroy', $post->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-sm"><i class="fa fa-trash"></i></button>
+                  </form>
                 </p>
+                @endcan
             </div>
             <h3 class="heading"><a href="{{route('posts.show', $post->id)}}">{{$post->title}}</a></h3>
             <p>{!!str_limit(($post->content), 300)!!}</p>

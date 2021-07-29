@@ -19,7 +19,7 @@
    <h4>Commets</h4>
    @forelse($post['comments'] as $comment)
         <p>{{$comment->description}}</p>
-        <p class="text-muted">{{$comments->created_at->diffForHumans()}}</p>
+        <p class="text-muted">{{$comment->created_at->diffForHumans()}}</p>
    @empty
         <p>No Comments Here..!!</p>
    @endforelse

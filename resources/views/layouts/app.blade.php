@@ -35,18 +35,32 @@
     <link rel="stylesheet" href="{{ asset('css/style.css')}}">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+  <nav  class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-      <a class="navbar-brand" href="{{url('/')}}"><span>Blog</span> Project</a>
+      <a class="navbar-brand" style="border-radius: 33px 0 33px 0;" href="{{url('/')}}"><span>Blog</span> Project</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="oi oi-menu"></span> Menu
       </button>
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active"><a href="{{url('/')}}" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="{{route('posts.index')}}" class="nav-link">Post</a></li>
-          <li class="nav-item"><a href="{{route('about')}}" class="nav-link">About</a></li>
-          <li class="nav-item"><a href="{{route('contact')}}" class="nav-link">Contact</a></li>
+          <li class="nav-item"><a href="{{route('posts.index')}}" class="nav-link">Blog Posts</a></li>
+          <li class="nav-item"><a href="{{route('posts.create')}}" class="nav-link">Add Post</a></li>
+          <li class="nav-item dropdown">
+            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+            Know More <span class="caret"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{ route('about') }}" >
+                About Us
+              </a>
+              <a class="dropdown-item" href="{{ route('contact') }}" >
+                Contact
+            </a>
+            </div>
+          </li>
+          {{-- <li class="nav-item"><a href="{{route('about')}}" class="nav-link">About</a></li>
+          <li class="nav-item"><a href="{{route('contact')}}" class="nav-link">Contact</a></li> --}}
           @guest
             <li class="nav-item">
               <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -59,7 +73,7 @@
           @else
             <li class="nav-item dropdown">
               <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-              Hello,  {{ Auth::user()->name }}.! <span class="caret"></span>
+              Hello,  {{ Auth::user()->name }} <span class="caret"></span>
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{{ route('logout') }}"

@@ -19,7 +19,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::withCount('comments')->get();
+        $posts = Post::withCount('comments')->with('user')->get();
         return view('posts.index', compact('posts'));
     }
 
@@ -66,9 +66,11 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail( $id);
-        if(Gate::denies('update-post', $post)){
-            abort(403, 'Sorry, you can\'t edit the post.');
-        }
+        $this->authorize('update', $post);
+        
+        // if(Gate::denies('update-post', $post)){
+        //     abort(403, 'Sorry, you can\'t edit the post.');
+        // }
         return view('posts.edit', compact('post'));
     }
 
@@ -81,7 +83,15 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::find( $id)
+                ->fill(['title' => $request->title, 'content' => $request->description]);
+        $this->authorize('update', $post);
+
+        $state= $post->save();
+        $flag = $state ? 'success' : 'fail';
+        $msg  = $flag == 'success' ? 'Post has been updated.' : 'There is an error.';
+
+        return back()->with($flag, $msg);
     }
 
     /**
@@ -92,10 +102,12 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-       $msg = Post::findOrFail( $id)->delete();
+        $post = Post::findOrFail( $id);
+        $this->authorize('delete', $post);
 
-       $flag = $state ? 'success' : 'fail';
-       $msg  = $flag == 'success' ? 'Post has been deleted.' : 'There is an error.';
+        $state = $post->delete();
+        $flag  = $state ? 'success' : 'fail';
+        $msg   = $flag == 'success' ? 'Post has been deleted.' : 'There is an error.';
 
         return back()->with($flag, $msg);
     }
