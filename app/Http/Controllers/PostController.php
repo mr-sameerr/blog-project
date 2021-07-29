@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -65,6 +66,9 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail( $id);
+        if(Gate::denies('update-post', $post)){
+            abort(403, 'Sorry, you can\'t edit the post.');
+        }
         return view('posts.edit', compact('post'));
     }
 
