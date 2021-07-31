@@ -16,6 +16,7 @@
    <h1>{{$post->title}}</h1>
    <p>{{$post->content}}</p>
    <p class="text-muted">Added {{$post->created_at->diffForHumans()}} by {{$post['user']->name}}</p>
+   <p class="text-muted"> @tags(['tags' => $post['tags']])  @endtags </p>
 
    <h4>Commets</h4>
    @forelse($post['comments'] as $comment)

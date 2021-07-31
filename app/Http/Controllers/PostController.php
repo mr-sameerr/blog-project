@@ -17,9 +17,11 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $posts = Post::withCount('comments')->with('user')->get();
+    public function index(){
+        $posts = Post::withCount('comments')->get();
+
+        //dd($posts[0]->user);
+
         return view('posts.index', compact('posts'));
     }
 
@@ -28,8 +30,7 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(){
         return view('posts.create');
     }
 
@@ -39,8 +40,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         
     }
 
@@ -50,8 +50,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id){
         $post = Post::with(['user', 'comments'])->findOrFail( $id);
         
         return view('posts.show', compact('post'));
@@ -63,8 +62,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id){
         $post = Post::findOrFail( $id);
         $this->authorize('update', $post);
         
@@ -81,8 +79,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         $post = Post::find( $id)
                 ->fill(['title' => $request->title, 'content' => $request->description]);
         $this->authorize('update', $post);
@@ -100,8 +97,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
         $post = Post::findOrFail( $id);
         $this->authorize('delete', $post);
 
