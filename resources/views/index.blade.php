@@ -13,6 +13,7 @@
 </section>
 <section class="ftco-section bg-light">
 <div class="container">
+  
     <div class="row d-flex">
       <div class="col-lg-4 ftco-animate">
         <div class="blog-entry">
@@ -32,6 +33,8 @@
        </div>
      </div>
    </div>
+
+
 
    <div class="col-lg-4 ftco-animate">
     <div class="blog-entry">
