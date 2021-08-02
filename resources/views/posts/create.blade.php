@@ -18,17 +18,22 @@
             <div class="card">
                 <!-- <div class="card-header">{{ __('Login') }}</div> -->
               <div class="card-body">
-                <form method="POST" action="{{ route('login') }}">
+                <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
                   @csrf
                   <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" class="form-control" id="title" placeholder="Title for your post">
+                    <input type="text" name="title" class="form-control" id="title" placeholder="Title for your post">
+
                   </div>
                   <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea class="form-control" id="description" rows="3"></textarea>
+                    <label for="content">Content</label>
+                    <textarea name="content" class="form-control" id="content" rows="3"></textarea>
                   </div>
-                  <button class="btn btn-primary">Post</btton>
+                  <div class="form-group">
+                    <label for="postThumb">Image</label>
+                    <input type="file" name="postThumb" class="form-control" id="postThumb" >
+                  </div>
+                  <input type="submit" class="btn btn-primary" name="submit" value="Post">
                 </form>
             </div>
         </div>

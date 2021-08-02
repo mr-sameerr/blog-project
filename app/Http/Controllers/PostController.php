@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Post;
 use Illuminate\Http\Request;
+use App\Http\Requests\GeneratePost;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -18,7 +21,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $posts = Post::withCount('comments')->get();
+        $posts = Post::withCount('comments')->with('tags')->get();
 
         //dd($posts[0]->user);
 
@@ -40,8 +43,20 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
-        
+    public function store(GeneratePost $request){
+
+        $data   = $request->validated();
+        $data['user_id'] = Auth::id();
+        $post   = Post::create($data);
+
+        if($request->hasFile('postThumb')){
+            $file = $request->file('postThumb');
+               dd(Storage::disk('public')->putFileAs('posts-thumbnails', $file, $post->id.'.'.$file->guessExtension()));
+        }
+
+        $request->session()->flash('success', 'Post has been created.');
+        return redirect()->route('posts.show', $post->id);
+
     }
 
     /**
@@ -79,7 +94,8 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id){
+    public function update(GeneratePost $request, $id){
+
         $post = Post::find( $id)
                 ->fill(['title' => $request->title, 'content' => $request->description]);
         $this->authorize('update', $post);

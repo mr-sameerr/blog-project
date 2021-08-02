@@ -108,7 +108,7 @@
             <h3 class="heading"><a href="{{route('posts.show', $post->id)}}">{{$post->title}}</a></h3>
             <p>{!!str_limit(($post->content), 300)!!}</p>
             <p class="text-muted">
-              @tags(['tags' => $post->tags]) @endtags
+              @tags(['tags' => $post['tags']]) @endtags
             </p>
             <p><a href="{{route('posts.show', $post->id)}}" class="btn btn-secondary py-2 px-3">Read more</a></p>
         </div>

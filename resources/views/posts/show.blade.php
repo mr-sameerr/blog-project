@@ -13,15 +13,26 @@
 </section>
 <section class="ftco-section bg-light">
 <div class="container">
-   <h1>{{$post->title}}</h1>
+  @if(Session::has('success'))
+      <div class="alert alert-success" style="margin: -84px 0 48px 0;">
+          {{Session::get('success')}}
+      </div>
+  @endif
+  <h1>{{$post->title}} 
+    @badge(['type', 'show' => (new Carbon\Carbon())->diffInDays($post->created_at) < 1])
+      New Post !
+    @endbadge
+  </h1>
    <p>{{$post->content}}</p>
-   <p class="text-muted">Added {{$post->created_at->diffForHumans()}} by {{$post['user']->name}}</p>
+   <!-- <p class="text-muted">Added {{$post->created_at->diffForHumans()}} by {{$post['user']->name}}</p> -->
    <p class="text-muted"> @tags(['tags' => $post['tags']])  @endtags </p>
+   <p class="text-muted"> @updated(['time' => true, 'date' => $post->created_at, 'name' => $post['user']->name]) @endupdated</p>
+   <p class="text-muted"> @updated(['time' => $post->updated_at, 'date' => $post->updated_at]) Updated @endupdated</p>
 
    <h4>Commets</h4>
    @forelse($post['comments'] as $comment)
         <p>{{$comment->description}}</p>
-        <p class="text-muted">{{$comment->created_at->diffForHumans()}}</p>
+        <p class="text-muted"> @updated(['time' => true, 'date' => $comment->created_at]) @endupdated </p>
    @empty
         <p>No Comments Here..!!</p>
    @endforelse
