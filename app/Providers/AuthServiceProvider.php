@@ -34,6 +34,10 @@ class AuthServiceProvider extends ServiceProvider
 
         //Gate::resource('post', 'App\Policies\PostPolicy');
         //Gate::define('post.delete', 'App\Policies\PostPolicy@delete');
-        
+        Gate::before(function($user, $ability){
+            if($user->is_admin && in_array($ability, ['update', 'delete'])){
+                return true;
+            }
+        });
     }
 }

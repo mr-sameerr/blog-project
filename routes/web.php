@@ -19,7 +19,7 @@ Auth::routes();
 
 //Route::get('/', 'HomeController@index')->name('home');
 Route::resource('posts', 'PostController');
-// Route::get('post/create', 'PostController@create')->name('post.create');
+Route::resource('user', 'UserController')->only(['show', 'edit', 'update']);
 Route::get('about-us', 'HomeController@about')->name('about');
 Route::get('contact-us', 'HomeController@contact')->name('contact');
 Route::get('posts/tag/{id}', 'PostTagController@index')->name('post-tags.index');

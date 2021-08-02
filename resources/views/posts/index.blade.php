@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<section class="hero-wrap hero-wrap-2" style="background-image: url('images/pix_2.jpg');">
+<section class="hero-wrap hero-wrap-2" style="background-image: url({{asset('images/pix_2.jpg')}});">
   <div class="overlay"></div>
   <div class="container">
     <div class="row no-gutters slider-text align-items-end justify-content-center">
