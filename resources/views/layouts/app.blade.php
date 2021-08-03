@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="{{ asset('css/jquery.timepicker.css')}}">
     <link rel="stylesheet" href="{{ asset('css/flaticon.css')}}">
     <link rel="stylesheet" href="{{ asset('css/style.css')}}">
+    
 </head>
 <body>
   <nav  class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
