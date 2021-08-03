@@ -29,6 +29,7 @@ $factory->define(User::class, function (Faker $faker) {
 $factory->state(User::class, 'post-mr-sameerr', function (Faker $faker) {
     return [
         'name'  =>  'admin',
-        'email' =>  'admin@gmail.com'
+        'email' =>  'admin@gmail.com',
+        'is_admin'  =>  1
     ];
 });

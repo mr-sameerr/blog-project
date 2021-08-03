@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Post;
+use App\PostImage;
 use Illuminate\Http\Request;
 use App\Http\Requests\GeneratePost;
 use Illuminate\Support\Facades\Gate;
@@ -50,8 +51,14 @@ class PostController extends Controller
         $post   = Post::create($data);
 
         if($request->hasFile('postThumb')){
+
             $file = $request->file('postThumb');
-               dd(Storage::disk('public')->putFileAs('posts-thumbnails', $file, $post->id.'.'.$file->guessExtension()));
+            $path = $file->store('posts-thumbnails');
+
+            $post->image()->save(
+                PostImage::create(['path' => $path])
+            );
+            //$url  = Storage::disk('public')->putFileAs('posts-thumbnails', $file, $post->id.'.'.$file->guessExtension());
         }
 
         $request->session()->flash('success', 'Post has been created.');
@@ -68,6 +75,7 @@ class PostController extends Controller
     public function show($id){
         $post = Post::with(['user', 'comments'])->findOrFail( $id);
         
+        //dd($post['image']);
         return view('posts.show', compact('post'));
     }
 

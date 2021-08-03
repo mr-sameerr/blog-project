@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<section class="hero-wrap hero-wrap-2" style="background-image: url('images/pix_2.jpg');">
+<section class="hero-wrap hero-wrap-2" style="background-image: url({{asset('images/pix_2.jpg')}});">
   <div class="overlay"></div>
   <div class="container">
     <div class="row no-gutters slider-text align-items-end justify-content-center">
@@ -12,16 +12,29 @@
  </div>
 </section>
 <section class="ftco-section bg-light">
-<div class="container">
-  @if(Session::has('success'))
+  <div class="container">
+    @if(Session::has('success'))
       <div class="alert alert-success" style="margin: -84px 0 48px 0;">
-          {{Session::get('success')}}
+        {{Session::get('success')}}
       </div>
-  @endif
-  <h1>{{$post->title}} 
-    @badge(['type', 'show' => (new Carbon\Carbon())->diffInDays($post->created_at) < 1])
-      New Post !
-    @endbadge
+    @endif
+    @if($post->image)
+      {{-- <div style="background-image: url('{{$post['image']->url()}}'); min-height: 500px; color:white; text-align: center; background-attachment: fixed;"> --}}
+        <img src='{{ Storage::url($post['image']->path)}}'/>
+        <h1>
+    @else
+      <h1>
+    @endif
+      {{$post->title}} 
+      @badge(['type', 'show' => (new Carbon\Carbon())->diffInDays($post->created_at) < 1])
+        New Post !
+      @endbadge
+    @if($post->image)
+        </h1>
+      {{-- </div> --}}
+    @else
+      </h1>
+    @endif
   </h1>
    <p>{{$post->content}}</p>
    <!-- <p class="text-muted">Added {{$post->created_at->diffForHumans()}} by {{$post['user']->name}}</p> -->
