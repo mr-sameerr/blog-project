@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-//Route::get('/', 'HomeController@index')->name('home');
+Route::resource('user', 'UserController')->only(['show', 'update', 'delete']);
 Route::resource('posts', 'PostController');
 Route::get('about-us', 'HomeController@about')->name('about');
 Route::get('contact-us', 'HomeController@contact')->name('contact');
