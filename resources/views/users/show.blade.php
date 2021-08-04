@@ -65,7 +65,8 @@
       </div>
     </div>
   </div>
-</section>  
+</section>
+{{$user}}
 <style>
   .profile-avatar{
     display: inline-block;
