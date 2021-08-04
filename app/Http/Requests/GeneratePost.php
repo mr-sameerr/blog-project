@@ -24,8 +24,9 @@ class GeneratePost extends FormRequest
     public function rules()
     {
         return [
-            'title'     => 'bail|required|min:10',
-            'content'   => 'required|min:20'
+            'title'     => 'bail|required|min:5',
+            'content'   => 'required|min:20',
+            'thumbnail' => 'image|mimes:jpg,jpeg,png,gif,svg'
         ];
     }
 }

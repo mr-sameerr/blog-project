@@ -8,7 +8,7 @@
     <div class="row no-gutters slider-text align-items-end justify-content-center">
       <div class="col-md-9 ftco-animate pb-5 text-center">
        <p class="breadcrumbs"><span class="mr-2"><i>Write Like A </i><b>Ninja</b></span> </p>
-       <h1 class="mb-0 bread">Captain America</h1>
+       <h1 class="mb-0 bread">{{$user->name}}</h1>
      </div>
    </div>
  </div>
@@ -28,7 +28,7 @@
           <div class="col-lg-4 order-lg-3 text-lg-right align-self-lg-center">
             <div class="card-profile-actions py-4 mt-lg-0">
               <a href="#" class="btn btn-sm btn-info mr-4">Connect</a>
-              <a href="#" class="btn btn-sm btn-default float-right">Message</a>
+              <a href="{{route('user.edit', $user->id)}}" class="btn btn-sm btn-default float-right "><i class="fa fa-edit"></i> Edit</a>
             </div>
           </div>
           <div class="col-lg-4 order-lg-1">
@@ -49,9 +49,9 @@
           </div>
         </div>
         <div class="text-center mt-5">
-          <h3>Captain America</h3>
+          <h3>{{$user->name}}</h3>
           <div class="h6 font-weight-300"><i class="ni location_pin mr-2"></i>Bucharest, Romania</div>
-          <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer</div>
+          <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i>{{$user->email}}</div>
           <div><i class="ni education_hat mr-2"></i>University of Computer Science</div>
         </div>
         <div class="mt-5 py-5 border-top text-center">
@@ -66,12 +66,12 @@
     </div>
   </div>
 </section>
-{{$user}}
+{{-- {{$user}} --}}
 <style>
   .profile-avatar{
     display: inline-block;
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
 
     background-repeat: no-repeat;

@@ -19,9 +19,8 @@
       </div>
     @endif
     @if($post->image)
-      {{-- <div style="background-image: url('{{$post['image']->url()}}'); min-height: 500px; color:white; text-align: center; background-attachment: fixed;"> --}}
-        <img src='{{ Storage::url($post['image']->path)}}'/>
-        <h1>
+      <div style="background-image: url('{{$post['image']->url()}}'); min-height: 500px; color:white; text-align: center; background-attachment: fixed;">
+        <h1 style="padding-top: 100px; text-shadow: 1px 2px #000">
     @else
       <h1>
     @endif
@@ -31,13 +30,12 @@
       @endbadge
     @if($post->image)
         </h1>
-      {{-- </div> --}}
+      </div>
     @else
       </h1>
     @endif
   </h1>
    <p>{{$post->content}}</p>
-   <!-- <p class="text-muted">Added {{$post->created_at->diffForHumans()}} by {{$post['user']->name}}</p> -->
    <p class="text-muted"> @tags(['tags' => $post['tags']])  @endtags </p>
    <p class="text-muted"> @updated(['time' => true, 'date' => $post->created_at, 'name' => $post['user']->name]) @endupdated</p>
    <p class="text-muted"> @updated(['time' => $post->updated_at, 'date' => $post->updated_at]) Updated @endupdated</p>

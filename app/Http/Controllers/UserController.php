@@ -51,8 +51,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         $user = $user->with('posts')->first();
-        dd($user);
-        return view('users.show', 'user');
+        return view('users.show', compact('user'));
     }
 
     /**
@@ -63,7 +62,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        dd($user);
+        return view('users.edit', compact('user'));
     }
 
     /**
