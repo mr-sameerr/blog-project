@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Post;
-use App\PostImage;
+use App\Image;
 use Illuminate\Http\Request;
 use App\Http\Requests\GeneratePost;
 use Illuminate\Support\Facades\Gate;
@@ -56,7 +56,7 @@ class PostController extends Controller
             $path = $file->store('posts-thumbnails');
 
             $post->image()->save(
-                PostImage::create(['path' => $path])
+                Image::create(['path' => $path])
             );
             //$url  = Storage::disk('public')->putFileAs('posts-thumbnails', $file, $post->id.'.'.$file->guessExtension());
         }
@@ -102,17 +102,31 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(GeneratePost $request, $id){
+    public function update(Request $request, $id){
 
-        $post = Post::find( $id)
-                ->fill(['title' => $request->title, 'content' => $request->description]);
-        $this->authorize('update', $post);
+        dd(1);
+        $post = Post::findOrFail( $id)
+        ->fill(['title' => $request->title, 'content' => $request->description]);
+        $this->authorize($post);
+        if($request->hasFile('post_image')){
+            $path = Storage::disk('public')->storeAs('post-thumbnails', $request->file('post_image'), $post->id.'_post_img.'$request->file('post_image')->guessExtension());
+            dd(2);
+            if($post->image->path){
+                Storage::delete($post->image->path)
+                $post->image->path = $path;
+                $post->image->save();
+            }else{
 
-        $state= $post->save();
-        $flag = $state ? 'success' : 'fail';
-        $msg  = $flag == 'success' ? 'Post has been updated.' : 'There is an error.';
+                $post->image()->save([
+                    Image::make('path' => $path)
+                ]);
+            }
+        }
+        // $state= $post->save();
+        // $flag = $state ? 'success' : 'fail';
+        // $msg  = $flag == 'success' ? 'Post has been updated.' : 'There is an error.';
 
-        return back()->with($flag, $msg);
+        //return back()->with($flag, $msg);
     }
 
     /**

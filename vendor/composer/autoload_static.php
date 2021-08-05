@@ -442,7 +442,6 @@ class ComposerStaticInit212ae51d64af68018976c3e96509b3fe
         'App\\Policies\\PostPolicy' => __DIR__ . '/../..' . '/app/Policies/PostPolicy.php',
         'App\\Policies\\UserPolicy' => __DIR__ . '/../..' . '/app/Policies/UserPolicy.php',
         'App\\Post' => __DIR__ . '/../..' . '/app/Post.php',
-        'App\\PostImage' => __DIR__ . '/../..' . '/app/PostImage.php',
         'App\\Profile' => __DIR__ . '/../..' . '/app/Profile.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',

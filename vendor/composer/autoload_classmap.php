@@ -33,7 +33,6 @@ return array(
     'App\\Policies\\PostPolicy' => $baseDir . '/app/Policies/PostPolicy.php',
     'App\\Policies\\UserPolicy' => $baseDir . '/app/Policies/UserPolicy.php',
     'App\\Post' => $baseDir . '/app/Post.php',
-    'App\\PostImage' => $baseDir . '/app/PostImage.php',
     'App\\Profile' => $baseDir . '/app/Profile.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',

@@ -5,14 +5,14 @@ namespace App;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Model;
 
-class PostImage extends Model
+class Image extends Model
 {
-    protected $table = 'post_images';
-
     protected $guarded = [];
 
+    
+
     public function post(){
-        return $this->belongsTo(Post::class);
+        return $this->morphTo();
     }
 
     public function url(){

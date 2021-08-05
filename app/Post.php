@@ -21,7 +21,7 @@ class Post extends Model
     }
 
     public function image(){
-        return $this->hasOne(PostImage::class);
+        return $this->morphOne(Image::class, 'image');
     }
 
 }

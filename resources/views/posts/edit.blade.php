@@ -11,6 +11,10 @@
    </div>
  </div>
 </section>
+<div class="mr-10 mt-2" style="text-align: right; padding: 1% 5% 0 0;">
+<a href="{{route('posts.show', $post->id)}}" class="btn btn-sm btn-light"><i class="fa fa-chevron-left" aria-hidden="true"></i>
+  Back</a>
+</div>
 <section class="ftco-section bg-light">
 <div class="container">
   @if(Session::has('success'))
@@ -27,9 +31,13 @@
         <div class="col-md-12">
             <div class="card">
               <div class="card-body">
-                <form method="POST" action="{{ route('posts.update', $post->id) }}">
+                <form method="POST" action="{{ route('posts.update', $post->id) }}" enctype="multipart/form-data">
                   @csrf
                   @method('PATCH')
+                  <div class="form-group">
+                    <label for="post_image">Post Image</label>
+                    <input type="file" class="form-control-file" name="post_image">
+                  </div>
                   <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" value="{{$post->title}}" class="form-control" name="title" placeholder="Title for your post">

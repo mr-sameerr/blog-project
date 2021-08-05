@@ -26,8 +26,9 @@
     @endif
       {{$post->title}} 
       @badge(['type', 'show' => (new Carbon\Carbon())->diffInDays($post->created_at) < 1])
-        New Post !
+        New Post
       @endbadge
+      <i></i>
     @if($post->image)
         </h1>
       </div>
@@ -35,10 +36,12 @@
       </h1>
     @endif
   </h1>
-   <p>{{$post->content}}</p>
-   <p class="text-muted"> @tags(['tags' => $post['tags']])  @endtags </p>
-   <p class="text-muted"> @updated(['time' => true, 'date' => $post->created_at, 'name' => $post['user']->name]) @endupdated</p>
-   <p class="text-muted"> @updated(['time' => $post->updated_at, 'date' => $post->updated_at]) Updated @endupdated</p>
+  <a href="{{route('posts.edit', $post->id)}}" class="btn btn-sm btn-dark"><i class="fa fa-pencil bg-dark"></i> edit</a>
+  <br><br>
+  <p>{{$post->content}}</p>
+  <p class="text-muted"> @tags(['tags' => $post['tags']])  @endtags </p>
+  <p class="text-muted"> @updated(['time' => true, 'date' => $post->created_at, 'name' => $post['user']->name]) @endupdated</p>
+  <p class="text-muted"> @updated(['time' => $post->updated_at, 'date' => $post->updated_at]) Updated @endupdated</p>
 
    <h4>Commets</h4>
    @forelse($post['comments'] as $comment)

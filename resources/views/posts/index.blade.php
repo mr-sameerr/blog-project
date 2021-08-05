@@ -89,11 +89,11 @@
             <div class="meta">
                 <p>
                   <a href="#"><span class="fa fa-calendar mr-2"></span> {{date('Y, m d', strtotime($post->created_at))}}</a>
-                  <a href="#"><span class="fa fa-user mr-2"></span>{{$post['user']->name}}</a>
+                  <a href="{{route('user.show', $post['user']->id)}}"><span class="fa fa-user mr-2"></span>{{$post['user']->name}}</a>
                   <a href="{{route('posts.show', $post->id)}}" class="meta-chat"><span class="fa fa-comment mr-2"></span> {{$post->comments_count}}</a>                    
                 </p>
                 <p>
-                   <a href="{{route('posts.edit', $post->id)}}" class="meta-chat"><span class="fa fa-edit mr-2"></span></a> 
+                   <a href="{{route('posts.edit', $post->id)}}" title="Edit Your Profile" class="meta-chat"><span class="fa fa-edit mr-2"></span></a> 
                 </p>
                 @can('delete', $post)
                 <p>

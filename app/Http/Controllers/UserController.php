@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -50,7 +51,6 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $user = $user->with('posts')->first();
         return view('users.show', compact('user'));
     }
 
@@ -74,7 +74,12 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        dd($user);
+        $avatar = $request->file('avatar') ;
+        if($request->hasFile('avatar')){
+            // Storage::disk('public')->delete($user->)
+            $path = Storage::disk('public')->putFileAs('users', $avatar, $user->id.'_avatar.'.$avatar->guessExtension());
+
+        }
     }
 
     /**
