@@ -19,8 +19,10 @@
       </div>
     @endif
     @if($post->image)
+    
       <div style="background-image: url('{{$post['image']->url()}}'); min-height: 500px; color:white; text-align: center; background-attachment: fixed;">
         <h1 style="padding-top: 100px; text-shadow: 1px 2px #000">
+        <a style="text-align: right" href="{{route('posts.edit', $post->id)}}" class="btn btn-sm btn-dark"><i class="fa fa-pencil bg-dark"></i> edit</a>
     @else
       <h1>
     @endif
@@ -36,7 +38,7 @@
       </h1>
     @endif
   </h1>
-  <a href="{{route('posts.edit', $post->id)}}" class="btn btn-sm btn-dark"><i class="fa fa-pencil bg-dark"></i> edit</a>
+  
   <br><br>
   <p>{{$post->content}}</p>
   <p class="text-muted"> @tags(['tags' => $post['tags']])  @endtags </p>

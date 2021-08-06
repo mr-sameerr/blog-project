@@ -104,22 +104,23 @@ class PostController extends Controller
      */
     public function update(Request $request, $id){
 
-        dd(1);
         $post = Post::findOrFail( $id)
         ->fill(['title' => $request->title, 'content' => $request->description]);
         $this->authorize($post);
+
+        $postImage = $request->file('post_image');
+        
         if($request->hasFile('post_image')){
-            $path = Storage::disk('public')->storeAs('post-thumbnails', $request->file('post_image'), $post->id.'_post_img.'$request->file('post_image')->guessExtension());
-            dd(2);
-            if($post->image->path){
-                Storage::delete($post->image->path)
+            $path = Storage::disk('public')->putFileAs('post-thumbnails', $postImage, $post->id.'_post_img.'.$postImage->guessExtension());
+
+            if($post->image){
+                Storage::delete($post->image->path);
                 $post->image->path = $path;
                 $post->image->save();
             }else{
-
-                $post->image()->save([
-                    Image::make('path' => $path)
-                ]);
+                $post->image()->save(
+                    Image::make(['path' => $path])
+                );
             }
         }
         // $state= $post->save();
