@@ -106,12 +106,12 @@ class PostController extends Controller
 
         $post = Post::findOrFail( $id)
         ->fill(['title' => $request->title, 'content' => $request->description]);
-        $this->authorize($post);
 
+        $this->authorize($post);
         $postImage = $request->file('post_image');
         
         if($request->hasFile('post_image')){
-            $path = Storage::disk('public')->putFileAs('post-thumbnails', $postImage, $post->id.'_post_img.'.$postImage->guessExtension());
+            $path = Storage::disk('public')->putFileAs('post-thumbnails', $postImage, $post->id.'_post.'.$postImage->guessExtension());
 
             if($post->image){
                 Storage::delete($post->image->path);
@@ -126,8 +126,8 @@ class PostController extends Controller
         // $state= $post->save();
         // $flag = $state ? 'success' : 'fail';
         // $msg  = $flag == 'success' ? 'Post has been updated.' : 'There is an error.';
-
-        //return back()->with($flag, $msg);
+        $request->session()->flash('success', 'Post has been updated.');
+        return redirect()->route('posts.show', $id);
     }
 
     /**
