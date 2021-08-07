@@ -46,7 +46,7 @@
   <div style="text-align: right;">
     <a href="{{route('posts.edit', $post->id)}}" class="btn btn-sm btn-dark"><i class="fa fa-pencil bg-dark"></i> Edit Post</a>
   </div>
-  <p class="text-muted"> @updated(['time' => true, 'date' => $post->created_at, 'name' => $post['user']->name]) @endupdated</p>
+  <p class="text-muted"> @updated(['time' => true, 'date' => $post->created_at, 'name' => $post['user']->name, 'userId' => $post['user']->id]) @endupdated</p>
   <p class="text-muted"> @updated(['time' => $post->updated_at, 'date' => $post->updated_at]) Updated @endupdated</p>
 
    <h4>Commets</h4>

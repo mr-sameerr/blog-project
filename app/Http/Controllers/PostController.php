@@ -22,9 +22,8 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $posts = Post::withCount('comments')->with('tags')->get();
 
-        //dd($posts[0]->user);
+        $posts = Post::withCount('comments')->with('tags')->get();
 
         return view('posts.index', compact('posts'));
     }
@@ -50,20 +49,23 @@ class PostController extends Controller
         $data['user_id'] = Auth::id();
         $post   = Post::create($data);
 
+        //Check if image exist and if exists then proceed further.
         if($request->hasFile('postThumb')){
 
             $file = $request->file('postThumb');
-            $path = $file->store('posts-thumbnails');
 
-            $post->image()->save(
-                Image::create(['path' => $path])
-            );
-            //$url  = Storage::disk('public')->putFileAs('posts-thumbnails', $file, $post->id.'.'.$file->guessExtension());
+            //This will store file in 'post-thumbnails' directory with random name.
+            // $path = $file->store('post-thumbnails');
+            $path = Storage::disk('public')->putFileAs('post-thumbnails', $file, Auth::id().'_post.'.$file->guessExtension());
+
+            $post->image()
+                ->save(
+                    Image::make(['path' => $path]) 
+                );
         }
 
         $request->session()->flash('success', 'Post has been created.');
         return redirect()->route('posts.show', $post->id);
-
     }
 
     /**
@@ -73,9 +75,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id){
+
         $post = Post::with(['user', 'comments'])->findOrFail( $id);
-        
-        //dd($post['image']);
+
         return view('posts.show', compact('post'));
     }
 
@@ -86,6 +88,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id){
+
         $post = Post::findOrFail( $id);
         $this->authorize('update', $post);
         
@@ -123,9 +126,7 @@ class PostController extends Controller
                 );
             }
         }
-        // $state= $post->save();
-        // $flag = $state ? 'success' : 'fail';
-        // $msg  = $flag == 'success' ? 'Post has been updated.' : 'There is an error.';
+
         $request->session()->flash('success', 'Post has been updated.');
         return redirect()->route('posts.show', $id);
     }
@@ -137,6 +138,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
+
         $post = Post::findOrFail( $id);
         $this->authorize('delete', $post);
 

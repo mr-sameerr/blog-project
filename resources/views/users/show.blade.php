@@ -21,7 +21,8 @@
           <div class="col-lg-3 order-lg-2" style="text-align: center;">
             <div class="card-profile-image" style="margin-top: -44px;">
               <a href="#">
-                <img src="{{asset('/images/person_1.jpg')}}" class="profile-avatar" >
+                {{-- <img src="{{asset('/images/person_1.jpg')}}" class="profile-avatar" > --}}
+                <img src="{{$user->image ? $user->image->url() : ''}}" class="profile-avatar" >
               </a>
             </div>
           </div>

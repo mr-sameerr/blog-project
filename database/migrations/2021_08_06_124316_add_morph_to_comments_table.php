@@ -28,7 +28,7 @@ class AddMorphToCommentsTable extends Migration
     public function down()
     {
         Schema::table('comments', function (Blueprint $table) {
-            $table->unsignedBigInteger('post_id')->index();
+            $table->unsignedBigInteger('post_id')->index()->nullable();
             $table->foreign('post_id')->on('id')->references('post');
             $table->dropMorphs('commentable');
         });
