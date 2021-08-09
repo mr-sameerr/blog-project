@@ -23,7 +23,7 @@ class UserCommentController extends Controller
             ])
         );
 
-        $request->session()->flash('success', 'Post has been created.');
+        $request->session()->flash('success', 'You\'r comment has been added.');
         return redirect()->route('user.show', $user->id);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\User;
 use App\Image;
 use Illuminate\Http\Request;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 class UserController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth');
+        $this->middleware('auth')->except('show');
         $this->authorizeResource(User::class, 'user');
     }
     /**
@@ -52,7 +53,11 @@ class UserController extends Controller
      */
     public function show(User $user){
 
-        //$postCount = $user->posts()->count());
+        // $user = User::find(Auth::id())->with('commentable', function (MorphTo $morphTo){
+        //     $morphTo->morphWith([
+        //         User::class => ['user'] ]);
+        // });
+        // dd($user->comments()->user);           
         return view('users.show', compact('user'));
     }
 

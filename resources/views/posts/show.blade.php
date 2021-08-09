@@ -59,13 +59,14 @@
                 <span><small class="font-weight-bold text-primary">james_olesenn</small>
               </div>
             </div>
-            <form action="{{route('post.comment.store', $post->id)}}" method="POST">
+            {{-- <form action="{{route('post.comment.store', $post->id)}}" method="POST">
               @csrf()
               <div class="form-group"><br>
                 <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" rows="3"></textarea>
               </div>
               <button type="submit" class="btn btn-primary btn-md btn-block">Add a Comment</button>
-            </form>
+            </form> --}}
+            @commentForm(['route' => route('post.comment.store', $post->id)]) @endcommentForm
           </div>
         </div>
       </div>
@@ -85,7 +86,7 @@
                 <span><small class="font-weight-bold text-primary">james_olesenn</small>
                   <p><small class="font-weight-bold">{{$comment->description}}</small></p>
                 </span>
-            </div> 
+            </div>
             <small>@updated(['time' => true, 'date' => $comment->created_at]) @endupdated</small>
           </div>
           <div class="action d-flex justify-content-between mt-2 align-items-center">
