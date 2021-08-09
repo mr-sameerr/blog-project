@@ -50,8 +50,9 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
-    {
+    public function show(User $user){
+
+        //$postCount = $user->posts()->count());
         return view('users.show', compact('user'));
     }
 
@@ -77,9 +78,8 @@ class UserController extends Controller
 
         $avatar = $request->file('avatar') ;
         if($request->hasFile('avatar')){
-            // Storage::disk('public')->delete($user->)
             $path = Storage::disk('public')->putFileAs('users', $avatar, $user->id.'_avatar.'.$avatar->guessExtension());
-            // dd($user->image)
+
             if($user->image){
                 $user->image->path = $path;
                 $user->save();

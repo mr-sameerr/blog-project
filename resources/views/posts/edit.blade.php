@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<section class="hero-wrap hero-wrap-2" style="background-image: url('images/pix_2.jpg');">
+<section class="hero-wrap hero-wrap-2" style="background-image: url('{{asset('images/pix_2.jpg')}}');">
   <div class="overlay"></div>
   <div class="container">
     <div class="row no-gutters slider-text align-items-end justify-content-center">
@@ -11,7 +11,7 @@
    </div>
  </div>
 </section>
-<div class="mr-10 mt-2" style="text-align: right; padding: 1% 5% 0 0;">
+<div class="mr-10" style="text-align: right; padding: 1% 5% 0 0;background: #f9faff">
 <a href="{{route('posts.show', $post->id)}}" class="btn btn-sm btn-light"><i class="fa fa-chevron-left" aria-hidden="true"></i>
   Back</a>
 </div>

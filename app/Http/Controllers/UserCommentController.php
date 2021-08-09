@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\
+use App\User;
+use App\Comment;
 use Illuminate\Http\Request;
+use App\Http\Requests\AddComment;
 
 class UserCommentController extends Controller
 {
@@ -11,7 +13,17 @@ class UserCommentController extends Controller
         $this->middleware('auth')->only(['store']);
     }
 
-    public function store(User $user, Request $request){
+    public function store(User $user, AddComment $request){
 
+        $data = $request->validated();
+
+        $user->commentsOnUser()->save(
+            Comment::make([
+                'description'   =>  $request->comment
+            ])
+        );
+
+        $request->session()->flash('success', 'Post has been created.');
+        return redirect()->route('user.show', $user->id);
     }
 }
