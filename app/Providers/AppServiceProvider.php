@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use App\Http\ViewComposers\GetUserComposer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('components.updated', 'updated');
         Blade::component('components.comment-form', 'commentForm');
         Blade::component('components.comment-list', 'commentList');
+
+        view()->composer('posts.show', GetUserComposer::class);
         //Blade::component('components.error', 'error');
     }
 }

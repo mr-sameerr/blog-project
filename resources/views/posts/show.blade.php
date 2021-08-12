@@ -52,22 +52,8 @@
     <div class="container mt-5">
       <div class="row d-flex ">
         <div class="col-md-8">
-          <div class="card p-3 mt-2">
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="user d-flex flex-row align-items-center"> 
-                <img src="https://i.imgur.com/hczKIze.jpg" width="30" class="user-img rounded-circle mr-2">
-                <span><small class="font-weight-bold text-primary">james_olesenn</small>
-              </div>
-            </div>
-            {{-- <form action="{{route('post.comment.store', $post->id)}}" method="POST">
-              @csrf()
-              <div class="form-group"><br>
-                <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary btn-md btn-block">Add a Comment</button>
-            </form> --}}
             @commentForm(['route' => route('post.comment.store', $post->id)]) @endcommentForm
-          </div>
+          
         </div>
       </div>
     </div>
@@ -78,12 +64,13 @@
         <div class="headings d-flex justify-content-between align-items-center mb-3">
           <h5>Latest Comments</h5>
         </div>
-        @forelse($post['comments'] as $comment)
+        <!-- @forelse($post['comments'] as $comment)
+        
         <div class="card p-3 mt-2">
           <div class="d-flex justify-content-between align-items-center">
             <div class="user d-flex flex-row align-items-center"> 
               <img src="https://i.imgur.com/hczKIze.jpg" width="30" class="user-img rounded-circle mr-2">
-                <span><small class="font-weight-bold text-primary">james_olesenn</small>
+                <span><small class="font-weight-bold text-primary">{{$comment->user->name}}</small>
                   <p><small class="font-weight-bold">{{$comment->description}}</small></p>
                 </span>
             </div>
@@ -96,7 +83,8 @@
         </div>
         @empty
           <p>No Comments Here..!!</p>
-        @endforelse
+        @endforelse -->
+        @commentList(['comments' => $post['comments']]) @endcommentList
       </div>
     </div>
   </div>
