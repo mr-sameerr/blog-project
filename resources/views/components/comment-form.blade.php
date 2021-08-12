@@ -1,4 +1,10 @@
 @auth
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="user d-flex flex-row align-items-center"> 
+      <img src="https://i.imgur.com/hczKIze.jpg" width="30" class="user-img rounded-circle mr-2">
+      <span>Comment as <small class="font-weight-bold text-primary">James Olesenn</small>
+    </div>
+  </div>
   <form action="{{$route}}" method="POST">
     @csrf()
     <div class="form-group"><br>

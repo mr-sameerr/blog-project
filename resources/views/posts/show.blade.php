@@ -53,12 +53,7 @@
       <div class="row d-flex ">
         <div class="col-md-8">
           <div class="card p-3 mt-2">
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="user d-flex flex-row align-items-center"> 
-                <img src="https://i.imgur.com/hczKIze.jpg" width="30" class="user-img rounded-circle mr-2">
-                <span><small class="font-weight-bold text-primary">james_olesenn</small>
-              </div>
-            </div>
+            
             {{-- <form action="{{route('post.comment.store', $post->id)}}" method="POST">
               @csrf()
               <div class="form-group"><br>
@@ -82,11 +77,12 @@
         <div class="card p-3 mt-2">
           <div class="d-flex justify-content-between align-items-center">
             <div class="user d-flex flex-row align-items-center"> 
-              <img src="https://i.imgur.com/hczKIze.jpg" width="30" class="user-img rounded-circle mr-2">
-                <span><small class="font-weight-bold text-primary">james_olesenn</small>
+              <img src="https://i.imgur.com/hczKIze.jpg" width="40" class="user-img rounded-circle mr-2">
+                <span><small class="font-weight-bold text-primary">James Olesenn</small>
                   <p><small class="font-weight-bold">{{$comment->description}}</small></p>
                 </span>
             </div>
+            {{dd($comment)}}
             <small>@updated(['time' => true, 'date' => $comment->created_at]) @endupdated</small>
           </div>
           <div class="action d-flex justify-content-between mt-2 align-items-center">

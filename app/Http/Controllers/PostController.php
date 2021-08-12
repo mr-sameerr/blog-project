@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Post;
 use App\Image;
+use App\Comment;
 use Illuminate\Http\Request;
 use App\Http\Requests\GeneratePost;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class PostController extends Controller
 {
@@ -24,6 +26,14 @@ class PostController extends Controller
     public function index(){
 
         $posts = Post::withCount('comments')->with('tags')->get();
+
+        $u = Post::query()
+                ->with(['commentable' => function (MorphTo $morphTo) {
+                    $morphTo->morphWith([
+                        User::class => ['posts']
+                    ]);
+                }])->get();
+        dd($u);
 
         return view('posts.index', compact('posts'));
     }
