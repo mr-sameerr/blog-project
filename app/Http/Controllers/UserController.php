@@ -53,12 +53,9 @@ class UserController extends Controller
      */
     public function show(User $user){
 
-        // $user = User::find(Auth::id())->with('commentable', function (MorphTo $morphTo){
-        //     $morphTo->morphWith([
-        //         User::class => ['user'] ]);
-        // });
-        // dd($user->comments()->user);           
-        return view('users.show', compact('user'));
+        $userProfile = User::where('id', 2)->with(['comments.user'])->first();
+
+        return view('users.show', compact('userProfile'));
     }
 
     /**

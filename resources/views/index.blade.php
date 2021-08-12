@@ -33,9 +33,6 @@
        </div>
      </div>
    </div>
-
-
-
    <div class="col-lg-4 ftco-animate">
     <div class="blog-entry">
       <a href="blog-single.html" class="block-20" style="background-image: url('images/image_2.jpg');">
