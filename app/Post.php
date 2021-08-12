@@ -18,16 +18,16 @@ class Post extends Model
         return $this->morphMany(Comment::class, 'commentable')->latest();
     }
 
-    public function tags(){
-        return $this->belongsToMany(Tag::class);
-    }
+    // public function tags(){
+    //     return $this->belongsToMany(Tag::class);
+    // }
 
     public function image(){
         return $this->morphOne(Image::class, 'imageable');
     }
 
-    // public function tags(){
-    //     return $this->morphToMany(Tag::class, 'taggable');
-    // }
+    public function tags(){
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
 
 }

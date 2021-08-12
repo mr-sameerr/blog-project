@@ -27,14 +27,6 @@ class PostController extends Controller
 
         $posts = Post::withCount('comments')->with('tags')->get();
 
-        $u = Post::query()
-                ->with(['commentable' => function (MorphTo $morphTo) {
-                    $morphTo->morphWith([
-                        User::class => ['posts']
-                    ]);
-                }])->get();
-        dd($u);
-
         return view('posts.index', compact('posts'));
     }
 

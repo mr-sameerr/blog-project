@@ -53,8 +53,9 @@ class UserController extends Controller
      */
     public function show(User $user){
 
-        $userProfile = User::where('id', 2)->with(['comments.user'])->first();
-
+        $userProfile = User::with('comments.user')->findOrFail(1);
+        dd($userProfile);
+        
         return view('users.show', compact('userProfile'));
     }
 

@@ -15,16 +15,19 @@ class CommentTableSeeder extends Seeder
     public function run()
     {
         $posts = Post::all();
-        $comments = factory(Comment::class, 40)->make()->each(function( $comment) use ($posts){
+        $users = User::all();
+
+        $comments = factory(Comment::class, 40)->make()->each(function( $comment) use ($posts, $users){
             $comment->commentable_type = 'App\Post';
             $comment->commentable_id   = $posts->random()->id;
+            $comment->user_id          = $users->random()->id;
             $comment->save();
         });
 
-        $users = User::all();
         $comments = factory(Comment::class, 40)->make()->each(function( $comment) use($users){
             $comment->commentable_type  = 'App\User';
             $comment->commentable_id    = $users->random()->id;
+            $comment->user_id           = $users->random()->id;   
             $comment->save();
         });
     }

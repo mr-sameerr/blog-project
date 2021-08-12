@@ -15,8 +15,8 @@ class Comment extends Model
         return $this->morphTo();
     }
 
-    // public function tags(){
-    //     return $this->morphToMany(Tag::class, 'taggables');
-    // }
+    public function tags(){
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
 
 }

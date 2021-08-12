@@ -74,7 +74,6 @@
                   <p><small class="font-weight-bold">{{$comment->description}}</small></p>
                 </span>
             </div>
-            {{dd($comment)}}
             <small>@updated(['time' => true, 'date' => $comment->created_at]) @endupdated</small>
           </div>
           <div class="action d-flex justify-content-between mt-2 align-items-center">
