@@ -53,9 +53,11 @@ class UserController extends Controller
      */
     public function show(User $user){
 
-        $userProfile = User::with('comments.user')->findOrFail(1);
-        dd($userProfile);
-        
+        $userProfile = User::with(['comments' => function($query) use($user){
+                            $query->where('commentable_type', 'App\User')
+                            ->with('user');
+                        }])->findOrFail( $user->id);
+
         return view('users.show', compact('userProfile'));
     }
 

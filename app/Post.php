@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\Taggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -9,6 +10,7 @@ class Post extends Model
 {
     //use SoftDeletes;
     protected $guarded = [];
+    use Taggable;
 
     public function user(){
         return $this->belongsTo(User::class);
@@ -26,8 +28,8 @@ class Post extends Model
         return $this->morphOne(Image::class, 'imageable');
     }
 
-    public function tags(){
-        return $this->morphToMany(Tag::class, 'taggable');
-    }
+    // public function tags(){
+    //     return $this->morphToMany(Tag::class, 'taggable');
+    // }
 
 }
