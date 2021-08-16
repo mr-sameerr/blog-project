@@ -48,6 +48,7 @@
           <li class="nav-item active"><a href="{{url('/')}}" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="{{route('posts.index')}}" class="nav-link">Blog Posts</a></li>
           <li class="nav-item"><a href="{{route('posts.create')}}" class="nav-link">Add Post</a></li>
+          <li class="nav-item"><a href="{{route('test-mail')}}" class="nav-link">Test</a></li>
           <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
             Know More <span class="caret"></span>

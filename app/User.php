@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -51,5 +52,13 @@ class User extends Authenticatable
 
     public function commentsOnUser(){
         return $this->morphMany(Comment::class, 'commentable')->latest();
+    }
+
+    public function scopeOtherCommentedOnPost(Builder $query, Post $post){
+        
+        return $query->whereHas('comments', function($query) use ($post) {
+            return $query->where('commentable_id', '=', $post->id)
+                    ->where('commentable_type', '=', Post::class);
+        });
     }
 }

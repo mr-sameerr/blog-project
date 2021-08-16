@@ -24,3 +24,4 @@ Route::resource('post.comment', 'PostCommentController')->only(['store']);
 Route::resource('user.comment', 'UserCommentController')->only(['store']);
 Route::get('about-us', 'HomeController@about')->name('about');
 Route::get('contact-us', 'HomeController@contact')->name('contact');
+Route::get('test', 'PostController@testMail')->name('test-mail');

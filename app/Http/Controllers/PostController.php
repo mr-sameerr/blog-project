@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Post;
+use App\User;
 use App\Image;
 use App\Comment;
 use Illuminate\Http\Request;
+use App\Mail\CommentNotifier;
 use App\Http\Requests\GeneratePost;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
@@ -78,8 +80,11 @@ class PostController extends Controller
      */
     public function show($id){
 
-        $post = Post::with(['user', 'comments.user'])->findOrFail( $id);
-
+        $post = Post::with(['user', 'comments' => function ($query) {
+                    $query->with('commentedByUser');
+                }])->find($id);
+        
+        // dd($post);
         return view('posts.show', compact('post'));
     }
 
@@ -149,5 +154,12 @@ class PostController extends Controller
         $msg   = $flag == 'success' ? 'Post has been deleted.' : 'There is an error.';
 
         return back()->with($flag, $msg);
+    }
+
+    public function testMail(){
+        $comment = Comment::find( 1);
+
+        return new CommentNotifier($comment);
+
     }
 }

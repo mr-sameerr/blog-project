@@ -6,10 +6,12 @@ use Auth;
 use App\Post;
 use App\Comment;
 use Illuminate\Http\Request;
+use App\Mail\CommentNotifier;
 use App\Http\Requests\AddComment;
-use App\Mail\CommentNotification;
 use App\Http\Requests\GeneratePost;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\CommentNotifierOtherUser;
+use App\Jobs\ActivityOnPostNotification;
 use Illuminate\Support\Facades\Storage;
 
 class PostCommentController extends Controller
@@ -23,14 +25,16 @@ class PostCommentController extends Controller
 
         //dd(Auth::user()->image->url());
         $data   = $request->validated();
-        $comment = $post->comments()->save(
+        $comment= $post->comments()->save(
                     Comment::make(['description'   => $request->comment])
                     );
+        
+        $delay  = now()->addMinutes(1);
 
+        Mail::to($post->user) 
+        ->queue(  new CommentNotifier($comment) );
 
-        Mail::to($post->user)->send(
-            new CommentNotification($comment)
-        );
+        ActivityOnPostNotification::dispatch($comment);
 
         $request->session()->flash('success', 'Post has been created.');
         return redirect()->route('posts.show', $post->id);
