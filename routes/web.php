@@ -25,3 +25,6 @@ Route::resource('user.comment', 'UserCommentController')->only(['store']);
 Route::get('about-us', 'HomeController@about')->name('about');
 Route::get('contact-us', 'HomeController@contact')->name('contact');
 Route::get('test', 'PostController@testMail')->name('test-mail');
+// Route::get('test', function(){
+//     print_r(app()->make('redis'));
+// });
