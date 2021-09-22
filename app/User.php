@@ -50,6 +50,10 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
+    public function scopeActiveAuthors(Builder $query){
+        return $query->withCount('posts')->orderBy('posts_count', 'DESC');
+    }
+
     public function commentsOnUser(){
         return $this->morphMany(Comment::class, 'commentable')->latest();
     }

@@ -34,14 +34,14 @@ class ActivityOnPostNotification implements ShouldQueue
      */
     public function handle()
     {
-        User::otherCommentedOnPost($this->comment->commentable)
-            ->get()
-            ->filter(function (User $user) {
-                return $user->id !== $this->comment->user_id;
-            })->map(function (User $user) {
-                Mail::to($user)->send(
-                    new CommentNotifierOtherUser($this->comment, $user)
-                );
-            });
+        // User::otherCommentedOnPost($this->comment->commentable)
+        //     ->get()
+        //     ->filter(function (User $user) {
+        //         return $user->id !== $this->comment->user_id;
+        //     })->map(function (User $user) {
+        //         Mail::to($user)->send(
+        //             new CommentNotifierOtherUser($this->comment, $user)
+        //         );
+        //     });
     }
 }

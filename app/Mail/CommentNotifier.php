@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CommentNotifier extends Mailable implements ShouldQueue
+class CommentNotifier extends Mailable //implements ShouldQueue
 {
     use Queueable, SerializesModels;
     public $comment;
@@ -30,7 +30,7 @@ class CommentNotifier extends Mailable implements ShouldQueue
     public function build()
     {
         $subject = "Comment was posted on your {$this->comment->commentable->title} post";
-        
+
         return $this->subject($subject)
                 ->markdown('emails.posts.commented');
     }

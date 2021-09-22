@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
+
 
 class HomeController extends Controller
 {
@@ -13,7 +16,7 @@ class HomeController extends Controller
      * @return void
      */
     public function __construct(){
-        $this->middleware('auth')->except(['about', 'contact']);
+        //$this->middleware('auth')->except(['about', 'contact']);
     }
 
     /**
@@ -22,9 +25,13 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(){
-        $posts = Post::all();
-        //dd($posts);
-        return view('index', compact('posts'));
+        // /dd(Redis::set('name', 'Taylor'));
+        $posts = Post::orderBy('id', 'DESC')->take(6)->get();
+
+        $mostCommented = Post::mostCommented()->take(6)->get();
+        $activeAuthors = User::activeAuthors()->take(6)->get();
+        // dd($activeAuthors);
+        return view('index', compact('posts', 'mostCommented', 'activeAuthors'));
     }
 
     public function about(){
